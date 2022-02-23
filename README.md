@@ -6,7 +6,7 @@ Allows for code to be uploaded remotely to Espruino hardware devices from a web 
 
 The package can be installed via npm using:
 
-`npm i espruino-remote-uploader --save`
+`npm i remote-uploader --save`
 
 # Usage
 
