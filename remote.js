@@ -1,4 +1,5 @@
 import uart from "espruino-ble-uart";
+import md5 from "md5";
 
 export default class Remote { 
     constructor(){
@@ -31,23 +32,29 @@ export default class Remote {
         if(!this.connected) {
             connect();
         };
-        this.#getRawCode(url).then((raw) => {
-            if(!flash){
-                reset();
-                this.UART.write(raw);
-            } else {
-                // Strip newlines
-                raw = raw.replace(/(\r\n|\n|\r)/gm, "")
-                // Write to Flash Storage
-                this.UART.write(`E.setBootCode("${raw}",1);\n`);
-                // Load into RAM
-                this.UART.write("load()\n");
-            }
+        let raw = this.#getRawCode(url).then((raw) => {
+            return raw;
         });
-        let success = false;
-        await this.#checkStatus().then(result => {
-            success = result;
-        });
+        
+        // Avoid duplicate uploads
+        if(this.#compareHash(raw)){
+            return true;
+        }
+    
+        if(!flash){
+            reset();
+            this.UART.write(raw);
+        } else {
+            // Strip newlines
+            raw = raw.replace(/(\r\n|\n|\r)/gm, "")
+            // Write to Flash Storage
+            this.UART.write(`E.setBootCode("${raw}",1);\n`);
+            // Load into RAM
+            this.UART.write("load()\n");
+            return this.#compareHash(raw);
+        }
+
+        let success = this.#compareHash(raw);
         return success;
     }
 
@@ -141,6 +148,26 @@ export default class Remote {
         return new Promise(res => setTimeout(res, ms));
       }
 
+    /**
+     * 
+     * @param {String} code to be compared with flash storage
+     * @returns True if code on device is same as code to be uploaded
+     */
+    #compareHash(code){
+         // Retrieve Device Code
+         let deviceCode;
+         this.dump().then(result => {
+             deviceCode = result;
+         });
+
+         // Split to find flash memory code
+         let arr = deviceCode.split('//Code set with E.setBootCode');
+
+         console.log(md5(code.replace(/(\r\n|\n|\r)/gm, "")));
+         console.log(md5(arr[1]));
+         return (md5(code.replace(/(\r\n|\n|\r)/gm, "") == md5(arr[1])));
+    }
+    
     /**
      * Write checksum to device
      * @returns checksum

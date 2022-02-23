@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/cmurray95/espruino-remote-uploader#readme",
   "dependencies": {
-    "espruino-ble-uart": "^1.0.3"
+    "espruino-ble-uart": "^1.0.3",
+    "md5": "^2.3.0"
   }
 }
