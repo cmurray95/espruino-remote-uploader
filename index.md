@@ -1,37 +1,65 @@
-## Welcome to GitHub Pages
+## Espruino Remote Uploader Tool
+This tool is designed to provide developers a method of downloading code to any [espruino](https://espruino.com/) device. The tool is available both as an NPM package, or as a seperate javascript library. 
 
-You can use the [editor on GitHub](https://github.com/cmurray95/espruino-remote-uploader/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+# Installation
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+The package can be installed via npm using:
 
-### Markdown
+`npm i remote-uploader --save`
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+# Usage
 
-```markdown
-Syntax highlighted code block
+To create a new connection:
 
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+```
+let connection = new Remote();
+connection.connect();
 ```
 
-For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
+To upload code to a connected device:
 
-### Jekyll Themes
+```
+connection.upload(url).then(result => {
+    if(result){
+        //...
+    } else {
+        //...
+    }
+})
+```
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/cmurray95/espruino-remote-uploader/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+Additionally, you can specify true to upload code directly to flash storage:
+```
+connection.upload(url,true).then(result => {
+    if(result){
+        //...
+    } else {
+        //...
+    }
+})
+```
 
-### Support or Contact
+Retrieve device type (E.g. pixl, bangle, puck):
+```
+connection.getDeviceType().then(result => {
+    //...
+})
+```
+You can retrieve code stored on the device using:
+```
+connection.dump().then((result) => {
+    //...
+})
+```
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+To reset a connection:
+
+```
+connection.reset();
+```
+
+Disconnect:
+
+```
+connection.disconnect();
+```
