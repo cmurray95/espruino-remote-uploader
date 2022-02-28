@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <script src="Remote.js"></script>
+    <script src="uart.js"></script> -->
+    <title>Remote-Uploader</title>
+</head>
+<body onload="connect()">
+<input type="text" name="url" id="url" value="">
+<button onclick="upload()">Upload</button>
+<button onclick="reset()">Reset</button>
+<button onclick="disc()">Disconnect</button>
+<button onclick="dump()">Dump</button>
+<button onclick="data()">data</button>
+<p></p>
+<button onclick="static()">Static Demo</button>
+<button onclick="staticFlash()">Static Demo(Flash)</button>
+<button onclick="interactive()">Interactive Demo</button>
+<button onclick="bangle_demo()">Bangle Demo</button>
+<div id="status"></div>
+<script src="./dist/remote.min.js"></script>
+<script type="module">
+    let connection = new Remote();
+    connection.connect();
+</script>
+</body>
+</html>

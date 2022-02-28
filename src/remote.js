@@ -1,7 +1,7 @@
 import uart from "espruino-ble-uart";
 import md5 from "md5";
 
-export default class Remote { 
+export class Remote { 
     constructor(){
         this.UART = uart;
         this.connected = false;
@@ -200,4 +200,3 @@ export default class Remote {
         return cmp == checksum;
     }
 }
-
