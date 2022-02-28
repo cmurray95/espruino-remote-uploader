@@ -142,13 +142,13 @@
       this[globalName] = mainExports;
     }
   }
-})({"0QSn7":[function(require,module,exports) {
+})({"glmxQ":[function(require,module,exports) {
 "use strict";
 var HMR_HOST = null;
 var HMR_PORT = null;
 var HMR_SECURE = false;
 var HMR_ENV_HASH = "d6ea1d42532a7575";
-module.bundle.HMR_BUNDLE_ID = "0a8ecb283d214d75";
+module.bundle.HMR_BUNDLE_ID = "03d2cc256989c0ba";
 function _toConsumableArray(arr) {
     return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
 }
@@ -518,14 +518,7 @@ function hmrAcceptRun(bundle, id) {
     acceptedAssets[id] = true;
 }
 
-},{}],"bB7Pu":[function(require,module,exports) {
-var _remoteUploader = require("remote-uploader");
-let connection = new _remoteUploader.Remote();
-window.onload = function connect() {
-    connection.connect();
-};
-
-},{"remote-uploader":"3EO1N"}],"3EO1N":[function(require,module,exports) {
+},{}],"1cW8y":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Remote", ()=>Remote
@@ -682,7 +675,7 @@ class Remote {
     }
 }
 
-},{"espruino-ble-uart":"6tLyZ","md5":"jZ5V0","@parcel/transformer-js/src/esmodule-helpers.js":"i5OFL"}],"6tLyZ":[function(require,module,exports) {
+},{"espruino-ble-uart":"6tLyZ","md5":"jZ5V0","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6tLyZ":[function(require,module,exports) {
 (function(root, factory) {
     if (typeof define === 'function' && define.amd) // AMD. Register as an anonymous module.
     define([], factory);
@@ -1418,7 +1411,7 @@ function isSlowBuffer(obj) {
     return typeof obj.readFloatLE === 'function' && typeof obj.slice === 'function' && isBuffer(obj.slice(0, 0));
 }
 
-},{}],"i5OFL":[function(require,module,exports) {
+},{}],"gkKU3":[function(require,module,exports) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a
@@ -1448,6 +1441,6 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}]},["0QSn7","bB7Pu"], "bB7Pu", "parcelRequire55c5")
+},{}]},["glmxQ","1cW8y"], "1cW8y", "parcelRequire8cd7")
 
-//# sourceMappingURL=index.3d214d75.js.map
+//# sourceMappingURL=index.6989c0ba.js.map
