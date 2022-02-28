@@ -2,15 +2,9 @@
   "name": "remote-uploader",
   "version": "1.4.0",
   "description": "Remote uploader tool for espruino devices",
-  "main": "./dist/remote.min.js",
-  "files": [
-    "src/",
-    "dist/*.js",
-    "dist/*.map"
-  ],
+  "main": "remote.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "parcel build src/remoteexp.ts --out-file dist/remote.min.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -31,12 +25,5 @@
   "dependencies": {
     "espruino-ble-uart": "^1.0.3",
     "md5": "^2.3.0"
-  },
-  "devDependencies": {
-    "parcel": "^2.3.2",
-    "parcel-bundler": "^1.12.5",
-    "rollup": "^2.68.0",
-    "rollup-boilerplate": "^1.1.5",
-    "typescript": "^4.5.5"
   }
 }
