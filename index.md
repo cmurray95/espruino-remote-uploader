@@ -7,6 +7,10 @@ The package can be installed via npm using:
 
 `npm i remote-uploader --save`
 
+or by including the following script tag in your html:
+
+`<script src="https://unpkg.com/remote-uploader@2.2.1/dist/remote.min.js"></script>`
+
 # Usage
 
 To create a new connection:
@@ -28,7 +32,7 @@ connection.upload(url).then(result => {
 })
 ```
 
-Additionally, you can specify true to upload code directly to flash storage:
+Additionally, you can specify true to upload code directly to flash storage (only available on certain devices):
 ```
 connection.upload(url,true).then(result => {
     if(result){
