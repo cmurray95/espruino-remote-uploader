@@ -10,7 +10,7 @@ The package can be installed via npm using:
 
 Alternatively, you can include the following script tag:
 
-`<script src="https://unpkg.com/remote-uploader@2.0.0/dist/remote.min.js"></script>`
+`<script src="https://unpkg.com/remote-uploader@2.2.1/dist/remote.min.js"></script>`
 
 # Usage
 
