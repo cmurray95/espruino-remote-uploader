@@ -5,6 +5,8 @@ export class Remote {
     constructor(){
         this.UART = uart;
         this.connected = false;
+        // Delay determines how long the checkStatus() function waits before attempting to verify upload status
+        this.delay = 8000;
     }
     
     /**
@@ -169,6 +171,11 @@ export class Remote {
         return val;
     }
   
+    // Allows the user to set a custom delay timer for checkStatus
+    setDelay(delay) {
+        this.delay = delay;
+    }
+
     /**
      * Check if code upload succeeded
      * @returns true if code was uploaded succesfully
@@ -185,7 +192,7 @@ export class Remote {
             cmp = t;
         });
         // Wait for eval to finish
-        await this.#halt(8000);
+        await this.#halt(this.delay);
         return cmp == checksum;
     }
   }
