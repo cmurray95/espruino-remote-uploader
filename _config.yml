@@ -22,11 +22,8 @@ title: Espruino Remote Uploader Tool
 email: 2473420m@student.gla.ac.uk
 description: >- # this means to ignore newlines until "baseurl:"
   remote-uploader provides a library allowing users to easily upload remotely stored code to any espruino hardware device
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "cmurray95.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 
 # Build settings
-#theme: "just-the-docs"
 remote_theme: pmarsceill/just-the-docs
 plugins:
   - jekyll-feed
