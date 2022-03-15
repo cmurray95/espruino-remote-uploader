@@ -49,7 +49,14 @@ function connect() {
     // Establishes connection with device
     connection.connect();
 }
+```
 
+Here, we begin by creating a new remote object which is used to open a connection between the browser and the device.
+
+
+## Uploading to the device
+
+```
 function upload() {
     let url = "https://raw.githubusercontent.com/cmurray95/Dissertation/main/src/demos/colour-test.js";
 
@@ -64,8 +71,6 @@ function upload() {
 }
 </script>
 ```
-
-Here, we begin by opening a connection between the browser and the device.
 
 Once connected, we use connection.upload to retrieve code stored at a remote url, then write that code to the connected device. 
 By passing in "true", the uploader will write the code to the devices flash memory. If we simply wished to write to RAM, we can ommit this flag.
