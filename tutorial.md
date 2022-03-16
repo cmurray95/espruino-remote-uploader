@@ -12,7 +12,7 @@ This tutorial will demonstrate an example usage of the remote uploader tool. We 
 Despite being targetted at puck.js devices, this steps taken in this tutorial can be replicated with any device, as long as the
 code being uploaded is valid for that device.
 
-A finished demo of this tutorial is available here.
+A finished demo of this tutorial is available [here]({% link demos/puck/colour.md %}).
 
 ## Requirements
 
@@ -25,14 +25,16 @@ This tutorial requires the following:
 
 Start by creating a html file and add the following script tag to the head element:
 
-`<script src="https://unpkg.com/remote-uploader@2.2.1/dist/remote.min.js"></script>`
+`<script src="https://unpkg.com/remote-uploader@2.4.0/dist/remote.min.js"></script>`
 
 Add the following buttons to the html body:
 
-```
+```js
 <button onclick="connect()"> connect </button>
 <button onclick="upload()"> upload </button>
 ```
+
+
 
 The connect button is used to establish a connection with the puck device, and the upload button will be used to send code to the device.
 
@@ -40,7 +42,7 @@ The connect button is used to establish a connection with the puck device, and t
 
 To establish a connect with the device, add the following javascript to the end of the html element:
 
-```
+```js
 <script>
 // Creates a new remote object.
 let connection = new Remote();
@@ -56,7 +58,7 @@ Here, we begin by creating a new remote object which is used to open a connectio
 
 ## Uploading to the device
 
-```
+```js
 function upload() {
     let url = "https://raw.githubusercontent.com/cmurray95/Dissertation/main/src/demos/colour-test.js";
 

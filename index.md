@@ -25,20 +25,22 @@ The package can be installed via npm using:
 
 Alternatively, you can include the following script tag:
 
-`<script src="https://unpkg.com/remote-uploader@2.2.1/dist/remote.min.js"></script>`
+```js
+<script src="https://unpkg.com/remote-uploader@2.4.0/dist/remote.min.js"></script>
+```
 
 ## Usage
 
 To create a new connection:
 
-```
+```js
 let connection = new Remote();
 connection.connect();
 ```
 
 To upload code to a connected device. Important to note that the upload function will have a delay before returning whilst code is being written to the device:
 
-```
+```js
 connection.upload(url).then(success => {
     if(success){
         //...
@@ -49,7 +51,7 @@ connection.upload(url).then(success => {
 ```
 
 Additionally, you can specify true to upload code directly to flash storage (flash uploading does not work for bangle devices):
-```
+```js
 connection.upload(url,true).then(success => {
     if(success){
         //...
@@ -60,13 +62,13 @@ connection.upload(url,true).then(success => {
 ```
 
 Retrieve device type (e.g. pixl, bangle, puck):
-```
+```js
 connection.getDeviceType().then(result => {
     //...
 })
 ```
 You can retrieve code stored on the device using:
-```
+```js
 connection.dump().then((result) => {
     //...
 })
@@ -74,13 +76,13 @@ connection.dump().then((result) => {
 
 To reset the device (removes all code currently stored on the device):
 
-```
+```js
 connection.reset();
 ```
 
 Disconnect:
 
-```
+```js
 connection.disconnect();
 ```
 
@@ -88,8 +90,8 @@ When writing code to a device using upload(), the remote-uploader will wait for 
 The amount of time taken to write to a device can vary heavily depending the size of the upload file, and the device being written to. By default the delay is set to 10 seconds,
 however users can override this using:
 
-```
-connection.delay(val)
+```js
+connection.setDelay(val)
 ```
 
 where val is a time in miliseconds. Be aware that issues may occur when using the delay value is too short.
