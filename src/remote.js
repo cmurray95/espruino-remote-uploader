@@ -171,7 +171,11 @@ export class Remote {
         return val;
     }
   
-    // Allows the user to set a custom delay timer for checkStatus
+    /**
+     * Delay execution of code while espruino device performs an action. Default delay is 10 seconds.
+     * Setting this to be too short may cause errors writing/reading from devices 
+     * @param {Int} delay sets delay time in miliseconds 
+     */
     setDelay(delay) {
         this.delay = delay;
     }
@@ -194,6 +198,15 @@ export class Remote {
         // Wait for eval to finish
         await this.#halt(this.delay);
         return cmp == checksum;
+    }
+
+    /**
+     * Takes a function as a string and calls that function on the device
+     * @param {String} func function to be called on device
+     */
+    call(func) {
+        func += "\n"
+        this.UART.write(func);
     }
   }
   
