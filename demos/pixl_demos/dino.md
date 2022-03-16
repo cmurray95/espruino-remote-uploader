@@ -21,6 +21,7 @@ To use the demo, connect to a device then select upload using the buttons below.
 
 <div id="controller" style="visibility:hidden">
   <button onclick="jump()" class="btn"> jump! </button>
+  <button onclick="restart()" class="btn"> Restart </button>
   <p></p>
 </div>
 
@@ -45,5 +46,9 @@ To use the demo, connect to a device then select upload using the buttons below.
 
     function jump() {
         connection.call("jump();");
+    }
+
+    function restart() {
+        connection.call("restart();");
     }
 </script>
