@@ -6,8 +6,7 @@ nav_order: 3
 title: colour demo
 ---
 
-<script src="https://unpkg.com/remote-uploader@2.4.0/dist/remote.min.js"></script>
-<script src="https://www.puck-js.com/puck.js"></script>
+<script src="https://unpkg.com/remote-uploader@2.5.0/dist/remote.min.js"></script>
 
 # Colour Demo
 
@@ -21,16 +20,15 @@ To use the demo, connect to a device then select upload using the buttons below.
 <p></p>
 
 <div id="leds" style="visibility:hidden">
-  <button onclick="Puck.write('red();\n');" class="red"></button> 
+  <button onclick="red();" class="red"></button> 
   <p></p>
-  <button onclick="Puck.write('blue();\n');" class="blue"></button> 
+  <button onclick="blue();" class="blue"></button> 
   <p></p>
-  <button onclick="Puck.write('green();\n');" class="green"></button>
+  <button onclick="green();" class="green"></button>
    <p></p>
-  <button onclick="Puck.write('clear();\n')" class="btn">Reset LEDs</button>
+  <button onclick="disableLEDs();" class="btn">Reset LEDs</button>
 
   <p></p>
-   The <a href="https://www.puck-js.com/puck.js">puck.js library</a> is used to call the functions written to the device.
 </div>
 
 <script>
@@ -41,16 +39,32 @@ To use the demo, connect to a device then select upload using the buttons below.
     }
 
     function upload() {
-    let url = "https://raw.githubusercontent.com/cmurray95/Dissertation/main/src/demos/colour-test.js";
+        let url = "https://raw.githubusercontent.com/cmurray95/Dissertation/main/src/demos/colour-test.js";
 
-    connection.upload(url).then(success => {
-        if(success){
-            document.getElementById("leds").style.visibility = "visible";
-        } else {
-            alert("Upload Failed! Please try again");
-        }
-    })
-}
+        connection.upload(url).then(success => {
+            if(success){
+                document.getElementById("leds").style.visibility = "visible";
+            } else {
+                alert("Upload Failed! Please try again");
+            }
+        })
+    }
+
+    function red(){
+        connection.call("red();");
+    }
+
+    function green(){
+        connection.call("green();");
+    }
+
+    function blue(){
+        connection.call("blue();");
+    }
+
+    function disableLEDs(){
+        connection.call("clear();");
+    }
 </script>
 
 <style>

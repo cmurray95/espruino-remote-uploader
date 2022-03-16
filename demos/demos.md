@@ -5,10 +5,10 @@ nav_order: 3
 title: Demos
 ---
 
-<script src="https://unpkg.com/remote-uploader@2.4.0/dist/remote.min.js"></script>
+<script src="https://unpkg.com/remote-uploader@2.5.0/dist/remote.min.js"></script>
 
 # Demos
-Please ensure you are using a <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Bluetooth_API#browser_compatibility">web-bluetooth compatible browser/device</a> when using these demos.
+<strong>Please ensure you are using a <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Bluetooth_API#browser_compatibility">web-bluetooth compatible browser/device</a> when using these demos.<strong>
 
 Here you will find various demos for a variety of espruino devices demonstrating various usecases of the remote uploader tool.
 

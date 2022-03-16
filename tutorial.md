@@ -25,7 +25,7 @@ This tutorial requires the following:
 
 Start by creating a html file and add the following script tag to the head element:
 
-`<script src="https://unpkg.com/remote-uploader@2.4.0/dist/remote.min.js"></script>`
+`<script src="https://unpkg.com/remote-uploader@2.5.0/dist/remote.min.js"></script>`
 
 Add the following buttons to the html body:
 

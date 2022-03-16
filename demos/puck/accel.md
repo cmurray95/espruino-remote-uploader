@@ -6,7 +6,7 @@ nav_order: 3
 title: accelerometer demo
 ---
 
-<script src="https://unpkg.com/remote-uploader@2.4.0/dist/remote.min.js"></script>
+<script src="https://unpkg.com/remote-uploader@2.5.0/dist/remote.min.js"></script>
 
 # Accelerometer Demo
 

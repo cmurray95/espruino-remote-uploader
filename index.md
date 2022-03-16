@@ -26,7 +26,7 @@ The package can be installed via npm using:
 Alternatively, you can include the following script tag:
 
 ```js
-<script src="https://unpkg.com/remote-uploader@2.4.0/dist/remote.min.js"></script>
+<script src="https://unpkg.com/remote-uploader@2.5.0/dist/remote.min.js"></script>
 ```
 
 ## Usage
@@ -95,5 +95,17 @@ connection.setDelay(val)
 ```
 
 where val is a time in miliseconds. Be aware that issues may occur when using the delay value is too short.
+
+You can also execute methods written to the device using:
+
+```js
+connection.call(foo)
+```
+
+where foo is a string representing the function being called. For example, to call foo you would use:
+
+```js
+connection.call("foo();");
+```
 
 
