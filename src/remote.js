@@ -34,31 +34,36 @@ export class Remote {
         if(!this.connected) {
             this.connect();
         };
+        let device = "";
         // Force flash if bangle detected
         await this.getDeviceType().then((res) =>{
-          if(res == "BANGLEJS" || "PIXLJS"){
+          if(res == "BANGLEJS"){
             flash = false;
           }
+          device = res;
         });
         let success = false;
         await this.#getRawCode(url).then((raw) => {
             // Compare code on device with code to be uploaded
             this.dump().then((res) => {
-              raw = raw.replace(/(\r\n|\n|\r)/gm, "")
               res = res.split("// Code saved with E.setBootCode");
               // If code exists on device already, skip upload process
               if(md5(raw) == md5(res[1])){
                 success = true;
               }
             })
+            // Reset ram before uploading
+            this.reset();
             if(!flash && success != true){
-                this.reset();
                 this.UART.write(raw);
-            } else if(success != true) {
-                // Strip newlines
-                raw = raw.replace(/(\r\n|\n|\r)/gm, "")
-                // Write to Flash Storage
-                this.UART.write(`E.setBootCode("${raw}",1);\n`);
+            // Write to Flash Storage - This method does not work for pixl devices due to the way graphics are represented as string literals
+            } else if(success != true && device != "PIXLJS") {
+                this.UART.write(`E.setBootCode(\`${raw}\`,true);\n`);
+                // Load into RAM
+                this.UART.write("load()\n");
+            } else if (success != true){
+                raw += "save();\n";
+                this.UART.write(raw);
                 // Load into RAM
                 this.UART.write("load()\n");
             }
@@ -185,7 +190,6 @@ export class Remote {
      * @returns true if code was uploaded succesfully
      */
     async #checkStatus() {
-        this.#writeStatus();
         // comparator
         let cmp;
         let checksum = this.#writeStatus();
@@ -205,8 +209,27 @@ export class Remote {
      * @param {String} func function to be called on device
      */
     call(func) {
-        func += "\n"
+        func += "\n";
         this.UART.write(func);
     }
+
+    /**
+     * 
+     * @param {String} func function to be called on the device
+     * @param {Int} delay time in miliseconds to wait for value to be returned. Setting this too low may result in errors. Default wait time is 500ms
+     * @returns value returned by the device
+     */
+     async eval(func, delay = 500) {
+        let val = "";
+        // Attempt to retrieve value from device
+        this.UART.eval(func, (res, err) => {
+            if(err) {
+                throw Error(err);
+            }
+            val = res
+        })
+        // Wait for eval to complete
+        await this.#halt(delay);
+        return val;
+    }
   }
-  
