@@ -12,7 +12,7 @@ This tutorial will demonstrate an example usage of the remote uploader tool. We 
 Despite being targetted at puck.js devices, this steps taken in this tutorial can be replicated with any device, as long as the
 code being uploaded is valid for that device.
 
-A finished demo of this tutorial is available [here]({% link demos/puck/colour.md %}).
+A finished demo of this tutorial is available [here](https://cmurray95.github.io/espruino-remote-uploader/demos/puck/colour.html).
 
 ## Requirements
 
@@ -25,7 +25,7 @@ This tutorial requires the following:
 
 Start by creating a html file and add the following script tag to the head element:
 
-`<script src="https://unpkg.com/remote-uploader@2.5.0/dist/remote.min.js"></script>`
+`<script src="https://unpkg.com/remote-uploader@2.6.0/dist/remote.min.js"></script>`
 
 Add the following buttons to the html body:
 

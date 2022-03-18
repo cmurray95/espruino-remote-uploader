@@ -26,11 +26,12 @@ The package can be installed via npm using:
 Alternatively, you can include the following script tag:
 
 ```js
-<script src="https://unpkg.com/remote-uploader@2.5.0/dist/remote.min.js"></script>
+<script src="https://unpkg.com/remote-uploader@2.6.0/dist/remote.min.js"></script>
 ```
 
 ## Usage
 
+### Creating a connection
 To create a new connection:
 
 ```js
@@ -38,6 +39,7 @@ let connection = new Remote();
 connection.connect();
 ```
 
+### Uploading code to the device
 To upload code to a connected device. Important to note that the upload function will have a delay before returning whilst code is being written to the device:
 
 ```js
@@ -61,12 +63,15 @@ connection.upload(url,true).then(success => {
 })
 ```
 
+### Identifying a device
 Retrieve device type (e.g. pixl, bangle, puck):
 ```js
 connection.getDeviceType().then(result => {
     //...
 })
 ```
+
+### Reading code from device
 You can retrieve code stored on the device using:
 ```js
 connection.dump().then((result) => {
@@ -74,18 +79,19 @@ connection.dump().then((result) => {
 })
 ```
 
+### Reset a devices memory
 To reset the device (removes all code currently stored on the device):
-
 ```js
 connection.reset();
 ```
 
-Disconnect:
-
+### Disconnecting a device
+To disconnect the device from the current webpage:
 ```js
 connection.disconnect();
 ```
 
+### Setting a custom delay
 When writing code to a device using upload(), the remote-uploader will wait for a set time before verifying if the write was succesful or not.
 The amount of time taken to write to a device can vary heavily depending the size of the upload file, and the device being written to. By default the delay is set to 10 seconds,
 however users can override this using:
@@ -96,16 +102,27 @@ connection.setDelay(val)
 
 where val is a time in miliseconds. Be aware that issues may occur when using the delay value is too short.
 
-You can also execute methods written to the device using:
+### Calling functions from the device
+You can execute methods written to the device using:
 
 ```js
 connection.call(foo)
 ```
 
-where foo is a string representing the function being called. For example, to call foo you would use:
+where foo is a string representing the function being called on the device. For example, to call foo you would use:
 
 ```js
 connection.call("foo();");
 ```
 
+### Retrieving data from the device
+You can retrieve a value from the device using:
+```js
+connection.eval(foo, delay).then((res => {
+    //...
+}))
+```
+
+Where foo is a string representing the function being called on the device, and delay is the time in miliseconds to wait before attempting to read back the value.
+Attempting to evaluate a response from a device can take time. Setting the delay value too low may result in errors.
 
