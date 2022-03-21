@@ -43,7 +43,7 @@ export class Remote {
           device = res;
         });
         let success = false;
-        await this.#getRawCode(url).then((raw) => {
+        await this.#getRawCode(url).then(async (raw) => {
             // Compare code on device with code to be uploaded
             this.dump().then((res) => {
               res = res.split("// Code saved with E.setBootCode");
@@ -60,17 +60,24 @@ export class Remote {
             } else if(success != true && device != "PIXLJS") {
                 this.UART.write(`E.setBootCode(\`${raw}\`,true);\n`);
                 // Load into RAM
-                this.UART.write("load()\n");
+                this.UART.write("load();\n");
+              // Flash storage for PIXL and misc devices
             } else if (success != true){
-                raw += "save();\n";
-                this.UART.write(raw);
+                this.UART.write(raw + "save();\n");
                 // Load into RAM
-                this.UART.write("load()\n");
+                this.UART.write("load();\n");
+                // Wait for save() and load() to finish
+                await this.#halt(8000);
+                await this.#checkStatus().then(result => {
+                    success = result;
+                });
             }
         });
-        await this.#checkStatus().then(result => {
-            success = result;
-        });
+        if(device != "PIXLJS"){
+            await this.#checkStatus().then(result => {
+                success = result;
+            });
+        }
         return success;
     }
   
@@ -171,7 +178,7 @@ export class Remote {
     #writeStatus() {
         // Generate checksum
         let val = Math.floor(Math.random() * 100);
-        let code = `function check(){return '${val}';}\n`;
+        let code = `function checkUploadStatus(){return '${val}';}\n`;
         this.UART.write(code);
         return val;
     }
@@ -184,7 +191,7 @@ export class Remote {
     setDelay(delay) {
         this.delay = delay;
     }
-
+  
     /**
      * Check if code upload succeeded
      * @returns true if code was uploaded succesfully
@@ -193,7 +200,7 @@ export class Remote {
         // comparator
         let cmp;
         let checksum = this.#writeStatus();
-        this.UART.eval('check()', (t,err) => {
+        this.UART.eval('checkUploadStatus()', (t,err) => {
             if(err){
                 throw Error(err);
             }
@@ -203,7 +210,7 @@ export class Remote {
         await this.#halt(this.delay);
         return cmp == checksum;
     }
-
+  
     /**
      * Takes a function as a string and calls that function on the device
      * @param {String} func function to be called on device
@@ -212,7 +219,7 @@ export class Remote {
         func += "\n";
         this.UART.write(func);
     }
-
+  
     /**
      * 
      * @param {String} func function to be called on the device
@@ -224,7 +231,7 @@ export class Remote {
         // Attempt to retrieve value from device
         this.UART.eval(func, (res, err) => {
             if(err) {
-                throw Error(err);
+               throw Error(err);
             }
             val = res
         })
@@ -233,3 +240,4 @@ export class Remote {
         return val;
     }
   }
+  
