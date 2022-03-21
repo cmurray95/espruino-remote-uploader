@@ -35,8 +35,9 @@ To use the demo, connect to a device then select upload using the buttons below.
 
     function upload() {
         let url = "https://raw.githubusercontent.com/cmurray95/Dissertation/main/src/demos/pixl-demo/dinosaur_interactive.js";
-
+        connection.setDelay(10000);
         connection.upload(url).then(success => {
+            console.log(success);
             if(success){
                 document.getElementById("controller").style.visibility = "visible";
             } else {
