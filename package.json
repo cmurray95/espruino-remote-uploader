@@ -1,6 +1,6 @@
 {
   "name": "remote-uploader",
-  "version": "2.7.0",
+  "version": "2.8.0",
   "description": "Remote uploader tool for espruino devices",
   "main": "./src/remote.js",
   "scripts": {

@@ -73,7 +73,7 @@ export class Remote {
                 });
             }
         });
-        if(device != "PIXLJS"){
+        if(success != true){
             await this.#checkStatus().then(result => {
                 success = result;
             });
@@ -102,6 +102,14 @@ export class Remote {
         this.connected = false;
     }
   
+    /**
+     * Check if connection is still available
+     * @returns true if connected
+     */
+    isConnected(){
+        return this.connected;
+    }
+
     /**
      * 
      * @returns String containing device name
@@ -240,4 +248,3 @@ export class Remote {
         return val;
     }
   }
-  
