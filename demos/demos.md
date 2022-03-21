@@ -5,7 +5,7 @@ nav_order: 3
 title: Demos
 ---
 
-<script src="https://unpkg.com/remote-uploader@2.6.0/dist/remote.min.js"></script>
+<script src="https://unpkg.com/remote-uploader@2.7.0/dist/remote.min.js"></script>
 
 # Demos
 <strong>Please ensure you are using a <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Bluetooth_API#browser_compatibility">web-bluetooth compatible browser/device</a> when using these demos.<strong>

@@ -6,7 +6,7 @@ nav_order: 3
 title: dino demo
 ---
 
-<script src="https://unpkg.com/remote-uploader@2.6.0/dist/remote.min.js"></script>
+<script src="https://unpkg.com/remote-uploader@2.7.0/dist/remote.min.js"></script>
 
 # Dino Demo
 
@@ -20,7 +20,7 @@ To use the demo, connect to a device then select upload using the buttons below.
 <p></p>
 
 <div id="controller" style="visibility:hidden">
-  <button onclick="jump()" class="btn"> jump! </button>
+  <button onclick="jump()" class="btn"> Jump! </button>
   <button onclick="restart()" class="btn"> Restart </button>
   <p></p>
 </div>
