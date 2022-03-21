@@ -20,8 +20,9 @@ To use the demo, connect to a device then select upload using the buttons below.
 
 <p></p>
 
-<div id="status" style="visibility:hidden">
-</div>
+<div id="status"> </div>
+
+<p></p>
 
 Once uploaded, you can control the game by tapping on the devices touchscreen.
 
