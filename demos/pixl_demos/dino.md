@@ -14,8 +14,9 @@ This demo will allow you to play a game on your pixl device. The pixl.js code fo
 
 To use the demo, connect to a device then select upload using the buttons below. If the upload is succesful, buttons will appear allowing you to control the game from this page.
 
-<button onclick="connect()" class="btn"> connect </button>
-<button onclick="upload()" class="btn"> upload </button>
+<button onclick="connect()" class="btn"> Connect </button>
+<button onclick="upload()" class="btn"> Upload </button>
+<button onclick="uploadFlash()" class="btn"> Upload to Flash </button>
 
 <p></p>
 
@@ -36,6 +37,18 @@ To use the demo, connect to a device then select upload using the buttons below.
         let url = "https://raw.githubusercontent.com/cmurray95/Dissertation/main/src/demos/pixl-demo/dinosaur_interactive.js";
 
         connection.upload(url).then(success => {
+            if(success){
+                document.getElementById("controller").style.visibility = "visible";
+            } else {
+                alert("Upload Failed! Please try again");
+            }
+        })
+    }
+
+     function uploadFlash() {
+        let url = "https://raw.githubusercontent.com/cmurray95/Dissertation/main/src/demos/pixl-demo/dinosaur_interactive.js";
+        connection.setDelay(10000);
+        connection.upload(url, true).then(success => {
             if(success){
                 document.getElementById("controller").style.visibility = "visible";
             } else {
