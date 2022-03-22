@@ -12,7 +12,7 @@ title: accelerometer demo
 
 The following demo demonstrates the simplest usecase of the remote-uploader tool: retrieving code from a remote source, and writing code to the device. For this example, we will be writing to the pucks flash storage. 
 
-The puck.js code for this demo can be found <a href="https://raw.githubusercontent.com/cmurray95/Dissertation/main/src/demos/accel-test.js">here</a>.
+The puck.js code for this demo can be found <a href="https://github.com/cmurray95/Dissertation/blob/main/src/demos/accel-test.js">here</a>.
 
 To use the demo, connect to a device then select upload using the buttons below. Once the upload is complete, simply rotate the puck device upside down to activate the green LED.
 
