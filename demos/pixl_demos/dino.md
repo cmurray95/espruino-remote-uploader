@@ -10,6 +10,8 @@ title: dino demo
 
 # Dino Demo
 
+<img src="../../media/dino.gif"/>
+
 This demo will allow you to play a game on your pixl device. The pixl.js code for this demo can be found <a href="https://github.com/cmurray95/Dissertation/blob/main/src/demos/pixl-demo/dinosaur_interactive.js">here</a>. The code has been modified from <a href="https://github.com/espruino/EspruinoApps/blob/master/apps/trex/app.js"> this application </a> such that it can now be controlled from a web browser.
 
 To use the demo, connect to a device then select upload using the buttons below. If the upload is succesful, buttons will appear allowing you to control the game from this page.

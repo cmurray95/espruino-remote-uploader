@@ -23,15 +23,20 @@ This tutorial requires the following:
 
 ## Setup
 
-Start by creating a html file and add the following script tag to the head element:
-
-`<script src="https://unpkg.com/remote-uploader@2.8.0/dist/remote.min.js"></script>`
-
-Add the following buttons to the html body:
+Start by creating a html file and add the following:
 
 ```js
-<button onclick="connect()"> connect </button>
-<button onclick="upload()"> upload </button>
+<head>
+    <script src="https://unpkg.com/remote-uploader@2.8.0/dist/remote.min.js"></script>
+</head>
+```
+
+Add the following buttons to the page:
+
+```js
+<body>
+    <button onclick="connect()"> connect </button>
+    <button onclick="upload()"> upload </button>
 ```
 
 
@@ -40,17 +45,17 @@ The connect button is used to establish a connection with the puck device, and t
 
 ## Creating a Connection
 
-To establish a connect with the device, add the following javascript to the end of the html element:
+To establish a connect with the device, add the following javascript code:
 
 ```js
-<script>
-// Creates a new remote object.
-let connection = new Remote();
+    <script>
+    // Creates a new remote object.
+    let connection = new Remote();
 
-function connect() {
-    // Establishes connection with device
-    connection.connect();
-}
+    function connect() {
+        // Establishes connection with device
+        connection.connect();
+    }
 ```
 
 Here, we begin by creating a new remote object which is used to open a connection between the browser and the device.
@@ -59,19 +64,20 @@ Here, we begin by creating a new remote object which is used to open a connectio
 ## Uploading to the device
 
 ```js
-function upload() {
-    let url = "https://raw.githubusercontent.com/cmurray95/Dissertation/main/src/demos/colour-test.js";
+    function upload() {
+        let url = "https://raw.githubusercontent.com/cmurray95/Dissertation/main/src/demos/colour-test.js";
 
-    // Retrieve code and write to devices flash memory
-    connection.upload(url, true).then(success => {
-        if(success){
-            window.location.replace("https://cmurray95.github.io/Dissertation/src/demos/colour-test.html");
-        } else {
-            alert("Upload Failed! Please try again");
-        }
-    })
-}
-</script>
+        // Retrieve code and write to devices flash memory
+        connection.upload(url, true).then(success => {
+            if(success){
+                window.location.replace("https://cmurray95.github.io/Dissertation/src/demos/colour-test.html");
+            } else {
+                alert("Upload Failed! Please try again");
+            }
+        })
+    }
+    </script>
+</body>
 ```
 
 Once connected, we use connection.upload to retrieve code stored at a remote url, then write that code to the connected device. 
