@@ -6,7 +6,7 @@ nav_order: 3
 title: flappy demo
 ---
 
-<script src="https://unpkg.com/remote-uploader@2.8.0/dist/remote.min.js"></script>
+<script src="https://unpkg.com/remote-uploader@3.0.0/dist/remote.min.js"></script>
 
 # Flappy Demo
 

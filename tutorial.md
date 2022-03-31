@@ -27,7 +27,7 @@ Start by creating a html file and add the following:
 
 ```js
 <head>
-    <script src="https://unpkg.com/remote-uploader@2.8.0/dist/remote.min.js"></script>
+    <script src="https://unpkg.com/remote-uploader@3.0.0/dist/remote.min.js"></script>
 </head>
 ```
 
