@@ -1,3 +1,5 @@
+[![npm version](https://badge.fury.io/js/remote-uploader.svg)](https://badge.fury.io/js/remote-uploader)
+
 # espruino-remote-uploader
 
 This tool allows for code to be uploaded remotely to Espruino hardware devices from a web browser. 
