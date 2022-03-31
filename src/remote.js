@@ -5,22 +5,16 @@ export class Remote {
     constructor(){
         this.UART = uart;
         this.connected = false;
-        // Delay determines how long the checkStatus() function waits before attempting to verify upload status
-        this.delay = 8000;
     }
     
     /**
      * Connect to device 
+     * @returns true if connection was succesful
      */
     connect(){
-        // Initialize connect and clear REPL
-        this.UART.write("\x03", (err) => {
-            if(!err){
+        // Initialize connection and clear REPL
+        this.UART.write("\x03", () => {
                 this.connected = true;
-            }
-            else {
-                throw Error(err);
-            }
         });
     }
   
@@ -34,14 +28,11 @@ export class Remote {
         if(!this.connected) {
             this.connect();
         };
-        let device = "";
+        let device = await this.getDeviceType();
         // Force flash if bangle detected
-        await this.getDeviceType().then((res) =>{
-          if(res == "BANGLEJS"){
+        if (device == "BANGLEJS") {
             flash = false;
-          }
-          device = res;
-        });
+        }
         let success = false;
         await this.#getRawCode(url).then(async (raw) => {
             // Compare code on device with code to be uploaded
@@ -50,27 +41,26 @@ export class Remote {
               // If code exists on device already, skip upload process
               if(md5(raw) == md5(res[1])){
                 success = true;
+                return;
               }
             })
             // Reset ram before uploading
             this.reset();
             if(!flash && success != true){
                 this.UART.write(raw);
-            // Write to Flash Storage - This method does not work for pixl devices due to the way graphics are represented as string literals
+            // Write to Flash Storage - This method does not currently work for pixl devices due to the way graphics are represented using string literals
             } else if(success != true && device != "PIXLJS") {
                 this.UART.write(`E.setBootCode(\`${raw}\`,true);\n`);
                 // Load into RAM
                 this.UART.write("load();\n");
               // Flash storage for PIXL and misc devices
             } else if (success != true){
-                this.UART.write(raw + "save();\n");
+                this.UART.write(raw);
+                success = await this.#checkStatus();
+                this.UART.write("save();\n");
                 // Load into RAM
                 this.UART.write("load();\n");
-                // Wait for save() and load() to finish
-                await this.#halt(8000);
-                await this.#checkStatus().then(result => {
-                    success = result;
-                });
+                
             }
         });
         if(success != true){
@@ -118,33 +108,20 @@ export class Remote {
         if(!this.connected){
             this.connect();
         }
-        let device = ""
-        this.UART.eval('process.env.BOARD', (d) => {
-            if(d){
-                device = d;
-            }
-        });
-        await this.#halt(200);
+        let device = await this.eval('process.env.BOARD');
         return device;
     }
   
     /**
      * 
-     * @returns code stored on device
+     * @returns promise containing code stored on device
      */
     async dump() {
         if(!this.connected) {
             this.connect();
         };
-        let str = "";
         // Retrieve code stored on device
-        this.UART.eval('E.dumpStr()', (t,err) => {
-            if(err){
-                throw Error(err);
-            }
-            str = t;
-          }); 
-        await this.#halt(5000);
+        let str = await this.eval('E.dumpStr()');
         return str;
     }
   
@@ -169,16 +146,7 @@ export class Remote {
         data = data + "\n";
         return data;
     }
-  
-    /**
-     * Delay execution
-     * @param {Timer} ms 
-     * @returns 
-     */
-    #halt(ms) {
-        return new Promise(res => setTimeout(res, ms));
-      }
-  
+
     /**
      * Write checksum to device
      * @returns checksum
@@ -192,30 +160,13 @@ export class Remote {
     }
   
     /**
-     * Delay execution of code while espruino device performs an action. Default delay is 10 seconds.
-     * Setting this to be too short may cause errors writing/reading from devices 
-     * @param {Int} delay sets delay time in miliseconds 
-     */
-    setDelay(delay) {
-        this.delay = delay;
-    }
-  
-    /**
      * Check if code upload succeeded
-     * @returns true if code was uploaded succesfully
+     * @returns promise containing boolean indicating if code was uploaded succesfully
      */
     async #checkStatus() {
-        // comparator
-        let cmp;
         let checksum = this.#writeStatus();
-        this.UART.eval('checkUploadStatus()', (t,err) => {
-            if(err){
-                throw Error(err);
-            }
-            cmp = t;
-        });
-        // Wait for eval to finish
-        await this.#halt(this.delay);
+        // comparator
+        let cmp = await this.eval('checkUploadStatus()');
         return cmp == checksum;
     }
   
@@ -231,20 +182,19 @@ export class Remote {
     /**
      * 
      * @param {String} func function to be called on the device
-     * @param {Int} delay time in miliseconds to wait for value to be returned. Setting this too low may result in errors. Default wait time is 500ms
-     * @returns value returned by the device
+     * @returns promise containing value returned by the device
      */
-     async eval(func, delay = 500) {
-        let val = "";
-        // Attempt to retrieve value from device
-        this.UART.eval(func, (res, err) => {
-            if(err) {
-               throw Error(err);
-            }
-            val = res
-        })
-        // Wait for eval to complete
-        await this.#halt(delay);
-        return val;
+    eval(func) {
+        const promise = new Promise((res, rej) => {
+            let callback = ((data) =>  {
+                res(data)
+            });
+            // Call func on device, and then resolve result 
+            this.UART.eval(func, callback)
+        }).catch((e) => {
+            throw Error(e);
+        });
+        // Return promise containing evaluated data
+        return promise;
     }
   }

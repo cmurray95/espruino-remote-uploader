@@ -22,7 +22,7 @@ The package can be installed via npm using:
 Alternatively, you can include the following script tag:
 
 ```
-<script src="https://unpkg.com/remote-uploader@2.8.0/dist/remote.min.js"></script>
+<script src="https://unpkg.com/remote-uploader@3.0.0/dist/remote.min.js"></script>
 ```
 
 ## Usage
@@ -87,17 +87,6 @@ To disconnect the device from the current webpage:
 connection.disconnect();
 ```
 
-### Setting a custom delay
-When writing code to a device using upload(), the remote-uploader will wait for a set time before verifying if the write was succesful or not.
-The amount of time taken to write to a device can vary heavily depending the size of the upload file, and the device being written to. By default the delay is set to 10 seconds,
-however users can override this using:
-
-```
-connection.setDelay(val)
-```
-
-where val is a time in miliseconds. Be aware that issues may occur when using the delay value is too short.
-
 ### Calling functions from the device
 You can execute methods written to the device using:
 
@@ -114,11 +103,9 @@ connection.call("foo();");
 ### Retrieving data from the device
 You can retrieve a value from the device using:
 ```
-connection.eval(foo, delay).then((res => {
+connection.eval(foo).then((result => {
     //...
 }))
 ```
 
-Where foo is a string representing the function being called on the device, and delay is the time in miliseconds to wait before attempting to read back the value.
-Attempting to evaluate a response from a device can take time. Setting the delay value too low may result in errors.
-
+Where foo is a string representing the function being called on the device.
